@@ -54,6 +54,7 @@ require 'src/world/TileMap'
 
 gTextures = {
     ['tiles'] = love.graphics.newImage('graphics/sheet.png'),
+    ['tiles_new'] = love.graphics.newImage('graphics/PelletTown.png'),
     ['entities'] = love.graphics.newImage('graphics/entities.png'),
     ['cursor'] = love.graphics.newImage('graphics/cursor.png'),
 

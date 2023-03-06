@@ -9,10 +9,11 @@
 Level = Class{}
 
 function Level:init()
-    self.tileWidth = 50
-    self.tileHeight = 50
+    self.tileWidth = 24
+    self.tileHeight = 16
 
     self.baseLayer = TileMap(self.tileWidth, self.tileHeight)
+    self.tiledlayer = TileMap(self.tileWidth, self.tileHeight)
     self.grassLayer = TileMap(self.tileWidth, self.tileHeight)
     self.halfGrassLayer = TileMap(self.tileWidth, self.tileHeight)
 
@@ -22,8 +23,8 @@ function Level:init()
         animations = ENTITY_DEFS['player'].animations,
         mapX = 10,
         mapY = 10,
-        width = 16,
-        height = 16,
+        width = 50,
+        height = 50,
     }
 
     self.player.stateMachine = StateMachine {
