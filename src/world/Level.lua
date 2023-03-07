@@ -9,8 +9,8 @@
 Level = Class{}
 
 function Level:init()
-    self.tileWidth = 24
-    self.tileHeight = 16
+    self.tileWidth = 50
+    self.tileHeight = 50
 
     self.baseLayer = TileMap(self.tileWidth, self.tileHeight)
     self.tiledlayer = TileMap(self.tileWidth, self.tileHeight)
@@ -23,8 +23,8 @@ function Level:init()
         animations = ENTITY_DEFS['player'].animations,
         mapX = 10,
         mapY = 10,
-        width = 50,
-        height = 50,
+        width = 16,
+        height = 16,
     }
 
     self.player.stateMachine = StateMachine {
@@ -58,6 +58,17 @@ function Level:createMaps()
             table.insert(self.grassLayer.tiles[y], Tile(x, y, id))
         end
     end
+
+    --place new tiles *to get wroking
+    for y = 1, self.tileHeight do
+        table.insert(self.tiledlayer.tiles, {})
+
+        for x = 1, self.tileWidth do
+            table.insert(self.tiledlayer.tiles[y], {})
+        end
+    end
+
+
 end
 
 function Level:update(dt)
@@ -67,5 +78,7 @@ end
 function Level:render()
     self.baseLayer:render()
     self.grassLayer:render()
+    self.tiledlayer:render()
     self.player:render()
+
 end
