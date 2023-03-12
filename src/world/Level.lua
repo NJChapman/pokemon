@@ -23,8 +23,8 @@ function Level:init()
         animations = ENTITY_DEFS['player'].animations,
         mapX = 10,
         mapY = 10,
-        width = 16,
-        height = 16,
+        width = 68,
+        height = 48,
     }
 
     self.player.stateMachine = StateMachine {
@@ -78,7 +78,7 @@ end
 function Level:render()
     self.baseLayer:render()
     self.grassLayer:render()
-    self.tiledlayer:render()
+    -- self.tiledlayer:render()
     self.player:render()
 
 end

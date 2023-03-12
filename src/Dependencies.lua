@@ -56,6 +56,7 @@ gTextures = {
     ['tiles'] = love.graphics.newImage('graphics/sheet.png'),
     ['tiles_new'] = love.graphics.newImage('graphics/PelletTown.png'),
     ['entities'] = love.graphics.newImage('graphics/entities.png'),
+    ['playerDown'] = love.graphics.newImage('graphics/playerDown.png'),
     ['cursor'] = love.graphics.newImage('graphics/cursor.png'),
 
     ['aardart-back'] = love.graphics.newImage('graphics/pokemon/aardart-back.png'),
@@ -72,7 +73,8 @@ gTextures = {
 
 gFrames = {
     ['tiles'] = GenerateQuads(gTextures['tiles'], 16, 16),
-    ['entities'] = GenerateQuads(gTextures['entities'], 16, 16)
+    ['entities'] = GenerateQuads(gTextures['entities'], 16, 16),
+    ['playerDown'] = GenerateQuads(gTextures['playerDown'], 48, 68)
 }
 
 gFonts = {

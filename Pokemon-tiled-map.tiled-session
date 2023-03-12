@@ -1,0 +1,56 @@
+{
+    "activeFile": "Tiled/PelletTown.tmx",
+    "expandedProjectPaths": [
+        "graphics",
+        "pokemon-javascript-game",
+        "pokemon-javascript-game/data",
+        ".vscode",
+        ".",
+        "Tiled"
+    ],
+    "fileStates": {
+        "Pellet Town.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tiled/PelletTown.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 14,
+            "viewCenter": {
+                "x": 699.4545454545455,
+                "y": 321.0909090909091
+            }
+        },
+        "Tiled/collisionTileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tiled/pokemon Style Game.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "Tiled/pokemonStyleGameTileset.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 3
+        },
+        "pokemon Style Game.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/Noah/Documents/Coding/Pokemon-lua/pokemon/Tiled",
+    "openFiles": [
+        "Tiled/PelletTown.tmx",
+        "Tiled/pokemonStyleGameTileset.tsx",
+        "Tiled/pokemon Style Game.tsx"
+    ],
+    "project": "Pokemon-tiled-map.tiled-project",
+    "recentFiles": [
+        "Tiled/pokemon Style Game.tsx",
+        "Tiled/pokemonStyleGameTileset.tsx",
+        "Tiled/PelletTown.tmx",
+        "Tiled/collisionTileset.tsx",
+        "pokemon Style Game.tsx",
+        "Pellet Town.tsx"
+    ]
+}
