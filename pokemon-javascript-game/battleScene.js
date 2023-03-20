@@ -8,25 +8,27 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 
-let draggle
-let emby
+
+let p1, p2
 let renderedSprites
 let battleAnimationId
 let queue
 
-function initBattle() {
+function initBattle(P1,P2) {
   document.querySelector('#userInterface').style.display = 'block'
   document.querySelector('#dialogueBox').style.display = 'none'
   document.querySelector('#enemyHealthBar').style.width = '100%'
   document.querySelector('#playerHealthBar').style.width = '100%'
   document.querySelector('#attacksBox').replaceChildren()
+  P1 = P1
+  P2 = P2
 
-  draggle = new Monster(monsters.Draggle)
-  emby = new Monster(monsters.Emby)
-  renderedSprites = [draggle, emby]
+  p2 = new Monster(monsters[P2])
+  p1 = new Monster(monsters[P1])
+  renderedSprites = [p2, p1]
   queue = []
 
-  emby.attacks.forEach((attack) => {
+  p1.attacks.forEach((attack) => {
     const button = document.createElement('button')
     button.innerHTML = attack.name
     document.querySelector('#attacksBox').append(button)
@@ -36,15 +38,18 @@ function initBattle() {
   document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
       const selectedAttack = attacks[e.currentTarget.innerHTML]
-      emby.attack({
+      p1.attack({
         attack: selectedAttack,
-        recipient: draggle,
+        recipient: p2,
         renderedSprites
       })
 
-      if (draggle.health <= 0) {
+      if (p2.health <= 0) {
         queue.push(() => {
-          draggle.faint()
+        
+          console.log(p1.name + "won")
+          p2.faint()
+          p1.win()
         })
         queue.push(() => {
           // fade back to black
@@ -66,20 +71,20 @@ function initBattle() {
         })
       }
 
-      // draggle or enemy attacks right here
+      // enemy attacks right here
       const randomAttack =
-        draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)]
+        p2.attacks[Math.floor(Math.random() * p2.attacks.length)]
 
       queue.push(() => {
-        draggle.attack({
+        p2.attack({
           attack: randomAttack,
-          recipient: emby,
+          recipient: p1,
           renderedSprites
         })
 
-        if (emby.health <= 0) {
+        if (p1.health <= 0) {
           queue.push(() => {
-            emby.faint()
+            p1.faint()
           })
 
           queue.push(() => {
@@ -115,9 +120,8 @@ function initBattle() {
 function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
-
-  console.log(battleAnimationId)
-
+  console.log(p2.sprite4x4)
+  // console.log(battleAnimationId)
   renderedSprites.forEach((sprite) => {
     sprite.draw()
   })

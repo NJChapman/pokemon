@@ -1,27 +1,26 @@
 class Sprite {
   constructor({
     position,
-    velocity,
     image,
     frames = { max: 1, hold: 10 },
     sprites,
+    sprite4x4 = false,
     animate = false,
     rotation = 0,
     scale = 1
   }) {
     this.position = position
     this.image = new Image()
+    this.sprite4x4 = sprite4x4
     this.frames = { ...frames, val: 0, elapsed: 0 }
     this.image.onload = () => {
       this.width = (this.image.width / this.frames.max) * scale
-      this.height = this.image.height * scale
+      this.height = this.sprite4x4 ? (this.image.width / this.frames.max) * scale : this.image.height * scale
     }
     this.image.src = image.src
-
     this.animate = animate
     this.sprites = sprites
     this.opacity = 1
-
     this.rotation = rotation
     this.scale = scale
   }
@@ -38,14 +37,14 @@ class Sprite {
       -this.position.y - this.height / 2
     )
     c.globalAlpha = this.opacity
-
+  
     const crop = {
       position: {
         x: this.frames.val * (this.width / this.scale),
-        y: 0
+        y: this.sprite4x4 ? this.frames.val * (this.height / this.scale) : 0
       },
       width: this.image.width / this.frames.max,
-      height: this.image.height
+      height: this.sprite4x4 ? this.image.height / this.frames.max : this.image.height
     }
 
     const image = {
@@ -54,8 +53,17 @@ class Sprite {
         y: this.position.y
       },
       width: this.image.width / this.frames.max,
-      height: this.image.height
+      height: this.sprite4x4 ? this.image.height / this.frames.max : this.image.height
     }
+    console.log(
+      "max frames " + this.frames.max,
+      "4x4? " + this.sprite4x4,
+      "width "  + image.width * this.scale, 
+      "height "  + image.height * this.scale, 
+      "crop position "  + crop.position.x,
+      "crop position "  + crop.position.y,
+      "crop width "  + crop.width,
+      "crop height "  + crop.height,)
 
     c.drawImage(
       this.image,
@@ -87,19 +95,21 @@ class Sprite {
 class Monster extends Sprite {
   constructor({
     position,
-    velocity,
     image,
+    sprite4x4 = false,
     frames = { max: 1, hold: 10 },
     sprites,
     animate = false,
     rotation = 0,
     isEnemy = false,
     name,
-    attacks
+    attacks,
+    exp,
+    enemyName
   }) {
     super({
+      sprite4x4,
       position,
-      velocity,
       image,
       frames,
       sprites,
@@ -110,6 +120,8 @@ class Monster extends Sprite {
     this.isEnemy = isEnemy
     this.name = name
     this.attacks = attacks
+    this.exp = exp
+    this.enemyName = enemyName
   }
 
   faint() {
@@ -124,6 +136,15 @@ class Monster extends Sprite {
     audio.victory.play()
   }
 
+  win() {
+    console.log(this.name + " gained 51 exp ")
+    document.querySelector('#dialogueBox').innerHTML = this.enemyName + ' fainted!'
+    document.querySelector('#dialogueBox').style.display = 'block'
+    document.querySelector('#dialogueBox').innerHTML =
+      this.name + ' gained 50 exp '
+    gainExperiencePoints(50)
+  }
+
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML =
@@ -136,6 +157,8 @@ class Monster extends Sprite {
     if (this.isEnemy) rotation = -2.2
 
     recipient.health -= attack.damage
+    if (this.isEnemy) pokemonStats.health -= attack.damage
+    console.log(pokemonStats.health)
 
     switch (attack.name) {
       case 'Fireball':
@@ -245,9 +268,9 @@ class Boundary {
 class Character extends Sprite {
   constructor({
     position,
-    velocity,
     image,
     frames = { max: 1, hold: 10 },
+    sprite4x4 = false,
     sprites,
     animate = false,
     rotation = 0,
@@ -255,8 +278,8 @@ class Character extends Sprite {
     dialogue = ['']
   }) {
     super({
+      sprite4x4,
       position,
-      velocity,
       image,
       frames,
       sprites,

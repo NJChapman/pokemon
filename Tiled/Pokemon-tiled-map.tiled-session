@@ -3,30 +3,50 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "pokemon Style Game.tsx",
+    "activeFile": "PelletTown.tmx",
     "expandedProjectPaths": [
+        "pokemon-javascript-game",
+        "graphics",
         "pokemon-javascript-game/data",
         ".vscode",
-        "graphics",
-        ".",
-        "pokemon-javascript-game"
+        "."
     ],
+    "exportAsImage.useCurrentScale": true,
     "fileStates": {
         "Pellet Town.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "PelletTown.tmx": {
+            "expandedGroupLayers": [
+                17
+            ],
+            "scale": 1.9468,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 754.5716046846106,
+                "y": 275.3236079720567
+            }
+        },
+        "collisionTileset.tsx": {
+            "scaleInDock": 1
+        },
         "pokemon Style Game.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "pokemonStyleGameTileset.tsx": {
+            "scaleInDock": 1
         }
     },
     "last.imagePath": "C:/Users/Noah/Downloads",
     "openFiles": [
-        "pokemon Style Game.tsx"
+        "pokemon Style Game.tsx",
+        "PelletTown.tmx"
     ],
     "project": "Pokemon-tiled-map.tiled-project",
     "recentFiles": [
+        "PelletTown.tmx",
         "pokemon Style Game.tsx",
         "Pellet Town.tsx"
     ],

@@ -1,3 +1,27 @@
+// wish list: 
+// DONE: store data in json
+// refactor pokemon class
+// add a new pokemon
+// add pokemon levels
+// add experience levels
+// 
+// exp bar
+
+
+
+/// oop plan 
+// classes: pokemonpart (stats ), pokemon, animate loop
+//entity, NPC, player,
+// game, field, battlestate
+//walking (check collision and battle)
+// menus, bars, textboxes
+//battlesprite
+
+let pokemon1 = "Emby"
+// let pokemon2 = "Draggle"
+let pokemon2 = "Blooper"
+
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
@@ -5,25 +29,25 @@ canvas.width = 1024
 canvas.height = 576
 
 const collisionsMap = []
-for (let i = 0; i < collisions.length; i += 70) {
-  collisionsMap.push(collisions.slice(i, 70 + i))
+for (let i = 0; i < collisions.length; i += 140) {
+  collisionsMap.push(collisions.slice(i, 140 + i))
 }
 
 const battleZonesMap = []
-for (let i = 0; i < battleZonesData.length; i += 70) {
-  battleZonesMap.push(battleZonesData.slice(i, 70 + i))
+for (let i = 0; i < battleZonesData.length; i += 140) {
+  battleZonesMap.push(battleZonesData.slice(i, 140 + i))
 }
 
 const charactersMap = []
-for (let i = 0; i < charactersMapData.length; i += 70) {
-  charactersMap.push(charactersMapData.slice(i, 70 + i))
+for (let i = 0; i < charactersMapData.length; i += 140) {
+  charactersMap.push(charactersMapData.slice(i, 140 + i))
 }
 console.log(charactersMap)
 
 const boundaries = []
 const offset = {
-  x: -735,
-  y: -650
+  x: -4095,
+  y: -610
 }
 
 collisionsMap.forEach((row, i) => {
@@ -116,6 +140,7 @@ charactersMap.forEach((row, i) => {
   })
 })
 
+
 const image = new Image()
 image.src = './img/Pellet Town.png'
 
@@ -165,7 +190,8 @@ const foreground = new Sprite({
     x: offset.x,
     y: offset.y
   },
-  image: foregroundImage
+  image: foregroundImage,
+  scale: 1.64
 })
 
 const keys = {
@@ -235,7 +261,8 @@ function animate() {
           rectangle2: battleZone
         }) &&
         overlappingArea > (player.width * player.height) / 2 &&
-        Math.random() < 0.01
+        Math.random() < 0.1
+        //Math.random() < 0.01 is a good value
       ) {
         // deactivate current animation loop
         window.cancelAnimationFrame(animationId)
@@ -256,7 +283,7 @@ function animate() {
               duration: 0.4,
               onComplete() {
                 // activate a new animation loop
-                initBattle()
+                initBattle(pokemon1,pokemon2)
                 animateBattle()
                 gsap.to('#overlappingDiv', {
                   opacity: 0,
@@ -461,6 +488,58 @@ window.addEventListener('keydown', (e) => {
       break
   }
 })
+
+// define the initial statistics for the player's pokemon
+let pokemonStats = {
+  level: 1,
+  currentExp: 0,
+  health: 100
+};
+
+// function to save the pokemon statistics to local storage
+function savePokemonStats() {
+  localStorage.setItem('pokemonStats', JSON.stringify(pokemonStats));
+}
+
+// function to load the pokemon statistics from local storage
+function loadPokemonStats() {
+  let savedPokemonStats = localStorage.getItem('pokemonStats');
+  if (savedPokemonStats) {
+    pokemonStats = JSON.parse(savedPokemonStats);
+  }
+}
+
+// call the loadPokemonStats function when the game starts
+loadPokemonStats();
+
+// when the player's pokemon gains experience points, update the currentExp and level properties
+function gainExperiencePoints(expPoints) {
+  pokemonStats.currentExp += expPoints;
+  if (pokemonStats.currentExp >= 100) {
+    pokemonStats.level++;
+    pokemonStats.currentExp = 0;
+  }
+  // save the updated pokemon statistics to local storage
+  savePokemonStats();
+}
+
+// when the player's pokemon takes damage, update the health property
+function takeDamage(damagePoints) {
+  pokemonStats.health -= damagePoints;
+  // save the updated pokemon statistics to local storage
+  savePokemonStats();
+}
+
+// when the player's pokemon heals, update the health property
+function heal(healPoints) {
+  pokemonStats.health += healPoints;
+  if (pokemonStats.health > 100) {
+    pokemonStats.health = 100;
+  }
+  // save the updated pokemon statistics to local storage
+  savePokemonStats();
+}
+
 
 window.addEventListener('keyup', (e) => {
   switch (e.key) {
